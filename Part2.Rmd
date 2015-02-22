@@ -1,0 +1,86 @@
+Statistical Inference Course Project
+========================================
+Part 2: Analyze The ToothGrowth Data 
+========================================
+Mahantesh Pattanshetti 
+----------------------
+
+### 1) Load the ToothGrowth data and perform some basic exploratory data analyses.
+```{r}
+library(datasets)
+library(ggplot2)
+data(ToothGrowth)
+```
+
+Take a look at the dataset variables
+```{r}
+str(ToothGrowth)
+head(ToothGrowth)
+```
+
+We can see that dose has only three values. Convert variable dose from numeric to factor
+```{r}
+ToothGrowth$dose <- as.factor(ToothGrowth$dose)
+```
+
+### 2) Provide a basic summary of the data.
+
+Summary statistics for all variables
+```{r}
+summary(ToothGrowth)
+```
+
+Split the data set  between different dose levels and delivery methods and create graphs
+```{r}
+table(ToothGrowth$dose, ToothGrowth$supp)
+
+ggplot(aes(x=dose, y=len), data=ToothGrowth) + geom_boxplot(aes(fill=dose))
+
+ggplot(aes(x=supp, y=len), data=ToothGrowth) + geom_boxplot(aes(fill=supp))
+```
+### 3) Run T Tests and check for confidence interval 
+Tests and confidence interval for two different supplement type:
+```{r}
+t.test(len ~ supp, data = ToothGrowth)
+```
+
+The p-value is 0.06, and the confidence interval contains zero. This indicates that we can not reject the null hypothesis that the different supplement types have no effect on tooth length.
+
+
+
+Create dose level pairs and run t tests for each dose level pair & check for confidence interval
+```{r}
+DosePair_1 <- subset (ToothGrowth, dose %in% c(0.5, 1.0)) 
+DosePair_2 <- subset (ToothGrowth, dose %in% c(1.0, 2.0)) 
+```
+
+Tests and confidence interval for dose level pair - 0.5 to 1.0
+
+```{r}
+t.test(len ~ dose, data = DosePair_1)
+```
+Tests and confidence interval for dose level pair - 1.0 to 2.0
+
+```{r}
+t.test(len ~ dose, data = DosePair_2)
+```
+
+For both two dose level pairs, the p-value is less than 0.05, and the confidence interval does not contain zero. Null hypothesis can be rejected. This implies that the mean tooth length increases on raising the dose level. 
+
+### 4) State your conclusions and the assumptions needed for your conclusions.
+
+Conclusions
+
+Supplement type has no effect on tooth growth.
+Increasing the dose level leads to increased tooth growth.
+
+Assumptions:
+- Guinea pigs sample is representative of population.There were no biases in picking the sample of pigs. 
+
+- The dosage asssignment to Guinea pigs was done with random assignment. There were no biases in dosage allocation to any particular pig. 
+
+- The variances are assumed to be different for the two groups being compared.
+
+
+github: 
+https://github.com/Mahantp/Coursera_Statistical_Inference
