@@ -22,7 +22,8 @@ set.seed(500)
 lambda <- 0.2
 numSimulations <- 1000
 sampleSize <- 40
-sim <- matrix(rexp(numSimulations*sampleSize, rate=lambda), numSimulations, sampleSize)
+sim <- matrix(rexp(numSimulations*sampleSize, rate=lambda), numSimulations, 
+              sampleSize)
 rMeans <- rowMeans(sim)
 ```
 ### Sample Mean versus Theoretical Mean: 
@@ -87,7 +88,8 @@ xfit <- seq(min(rMeans), max(rMeans), length=100)
 yfit <- dnorm(xfit, mean=1/lambda, sd=(1/lambda/sqrt(sampleSize)))
 lines(xfit, yfit, pch=22, col="purple", lty=2)
 # add legend
-legend('topright', c("simulation", "theoretical"), lty=c(1,2), col=c("tan", "purple"))
+legend('topright', c("simulation", "theoretical"), lty=c(1,2), 
+       col=c("tan", "purple"))
 ```
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 

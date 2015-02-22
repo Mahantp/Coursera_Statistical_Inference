@@ -10,18 +10,6 @@ Mahantesh Pattanshetti
 ```r
 library(datasets)
 library(ggplot2)
-```
-
-```
-## 
-## Attaching package: 'ggplot2'
-## 
-## The following object is masked _by_ '.GlobalEnv':
-## 
-##     mpg
-```
-
-```r
 data(ToothGrowth)
 ```
 
